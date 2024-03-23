@@ -5,12 +5,18 @@ using Photon.Pun;
 
 public class EatableSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject flyPrefab;
-    [SerializeField] private PhotonView view;
+    [SerializeField] List<GameObject> possibleSpawns;
+    [Tooltip("Each index of spawn chance correlates to a possible spawn of the SAME INDEX!")]
+    [SerializeField] List<float> spawnChance;
+
+    [SerializeField] private float spawnrate = 3;
+
+    private BoxCollider spawnCollider;
 
     // Start is called before the first frame update
     void Start()
     {
+        spawnCollider = GetComponent<BoxCollider>();
         if(PhotonNetwork.IsMasterClient)
         {
             Invoke("SpawnEatable", 0.5f);
@@ -26,10 +32,23 @@ public class EatableSpawner : MonoBehaviour
 
     public void SpawnEatable()
     {
-        GameObject eatable = PhotonNetwork.Instantiate(flyPrefab.name, new Vector3(Random.Range(-10f, 7f), Random.Range(1.5f, 5), 0), Quaternion.identity);
+        float xPos = Random.Range(transform.position.x + transform.localScale.x / 2, transform.position.x - transform.localScale.x / 2);
+        float yPos = Random.Range(transform.position.y + transform.localScale.y / 2, transform.position.y - transform.localScale.y / 2);
+        float randFloat = Random.Range(0f, 100f);
+        int i = 0;
+        foreach(float chance in spawnChance)
+        {
+            if(randFloat <= chance)
+            {
+                GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+            }
+            i++;
+        }
+
+
         if(PhotonNetwork.IsMasterClient)
         {
-            Invoke("SpawnEatable", 3f);
+            Invoke("SpawnEatable", spawnrate);
         }
     }
 }
