@@ -17,9 +17,9 @@ public class FrogController : MonoBehaviour
     [SerializeField] private float movespeed = 3f;
 
     public string nickname = "DEFAULT";
-    [SerializeField] private PhotonView view;
+    [SerializeField] protected PhotonView view;
     [SerializeField] public Rigidbody rb;
-    [SerializeField] private TMPro.TMP_Text playerNameText;
+    [SerializeField] protected TMPro.TMP_Text playerNameText;
     private float xInput = 0;
     private Vector3 previousVelocity = Vector3.zero;
     public bool isGrounded = false;

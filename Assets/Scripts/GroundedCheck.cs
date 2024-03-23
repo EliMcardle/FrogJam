@@ -16,13 +16,16 @@ public class GroundedCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (triggerList.Count > 0)
+        if(playermove.isActiveAndEnabled)
         {
-            playermove.isGrounded = true;
-        }
-        else
-        {
-            playermove.isGrounded = false;
+            if (triggerList.Count > 0)
+            {
+                playermove.isGrounded = true;
+            }
+            else
+            {
+                playermove.isGrounded = false;
+            }
         }
     }
 
