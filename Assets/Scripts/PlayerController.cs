@@ -159,7 +159,8 @@ public class PlayerController : MonoBehaviour
         PlayerController player = PhotonView.Find(viewID).gameObject.GetComponent<PlayerController>();
         player.power = 10;
         player.view.RPC("SyncPower", RpcTarget.AllBuffered, player.power);
-        player.transform.position = new Vector3(Random.Range(-3, 5), 0, 0);
+        int randInt = Random.Range(0, FrogPlayerManager.Instance.spawnPoints.Count);
+        player.transform.position = FrogPlayerManager.Instance.spawnPoints[randInt].position;
     }
 
     [PunRPC]
