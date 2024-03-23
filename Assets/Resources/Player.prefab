@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 2198020198952716466}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66d5c5bd492fad48b6a00d490869e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerDifference: 50
   view: {fileID: 10646457545640780}
   tadpole: {fileID: 2387839952164064650}
   frog: {fileID: -2113929626693230169}
@@ -606,8 +607,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294901791
+  m_fontColor: {r: 0.12345743, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
