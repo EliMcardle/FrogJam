@@ -202,6 +202,9 @@ MonoBehaviour:
   sittingLeft: {fileID: 21300000, guid: 70fb76edcdee7ba469f9be2b3a43aa42, type: 3}
   jumpingRight: {fileID: 21300000, guid: 336abd98c2c4a39439b7b396daeb33e0, type: 3}
   jumpingLeft: {fileID: 21300000, guid: 1c23aa5991e7ceb4da8df0bde7d6928b, type: 3}
+  powerRatio: 0
+  greenFloor: 1000
+  redFloor: 2000
 --- !u!114 &10646457545640780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,8 +615,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294901791
-  m_fontColor: {r: 0.12345743, g: 0, b: 1, a: 1}
+    rgba: 4294901760
+  m_fontColor: {r: 0, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

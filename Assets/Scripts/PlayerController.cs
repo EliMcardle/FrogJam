@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite jumpingRight;
     [SerializeField] private Sprite jumpingLeft;
 
+
+    [SerializeField] private float powerRatio;
+    [SerializeField] private int greenFloor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,8 +117,34 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     public void SyncPower(float myPower)
     {
+
         power = myPower;
         playerPowerText.text = power.ToString();
+
+        Color powerColor = new Color();
+        if(power< greenFloor)
+        {
+            powerRatio = power / greenFloor;
+            float inverse = 1 - powerRatio;
+            Debug.Log(powerRatio);
+            Debug.Log(inverse);
+            powerColor = new Color(0, powerRatio, inverse);
+        }
+
+        else if( power >= greenFloor && power < 2 * greenFloor)
+        {
+            powerRatio = (power - greenFloor) / (greenFloor);
+            float inverse = 1 - powerRatio;
+            powerColor = new Color(powerRatio, inverse, 0);
+        }
+
+        else
+        {
+            powerColor = new Color(1, 0, 0);
+        }
+
+
+        playerPowerText.color = powerColor;
     }
 
     [PunRPC]
