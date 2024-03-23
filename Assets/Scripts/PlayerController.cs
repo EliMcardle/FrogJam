@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,9 +12,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FrogController frog;
     [SerializeField] private Rigidbody rb;
     [SerializeField] protected TMPro.TMP_Text playerPowerText;
+    [SerializeField] private Image playerImage;
     private bool isFrog = true;
 
     public float power = 10f;
+    private bool facingRight = true;
+    [SerializeField] private Sprite sittingRight;
+    [SerializeField] private Sprite sittingLeft;
+    [SerializeField] private Sprite jumpingRight;
+    [SerializeField] private Sprite jumpingLeft;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +31,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(rb.velocity.x > 0)
+        {
+            facingRight = true;
+        }
+        else if(rb.velocity.x < 0)
+        {
+            facingRight = false;
+        }
+
         if(view.IsMine && Input.GetKeyDown(KeyCode.P))
         {
             power += 50;
             view.RPC("SyncPower", RpcTarget.AllBuffered, power);
+        }
+
+        if(view.IsMine)
+        {
+            if (frog.isGrounded && facingRight)
+            {
+                view.RPC("ChangeSprite", RpcTarget.AllBuffered, 0);
+            }
+            else if (frog.isGrounded && !facingRight)
+            {
+                view.RPC("ChangeSprite", RpcTarget.AllBuffered, 1);
+            }
+            else if (!frog.isGrounded && facingRight)
+            {
+                view.RPC("ChangeSprite", RpcTarget.AllBuffered, 2);
+            }
+            else if (!frog.isGrounded && !facingRight)
+            {
+                view.RPC("ChangeSprite", RpcTarget.AllBuffered, 3);
+            }
         }
     }
 
@@ -94,5 +130,30 @@ public class PlayerController : MonoBehaviour
         player.power = 10;
         player.view.RPC("SyncPower", RpcTarget.AllBuffered, player.power);
         player.transform.position = new Vector3(Random.Range(-3, 5), 0, 0);
+    }
+
+    [PunRPC]
+    public void ChangeSprite(int state)
+    {
+        if(state == 0)
+        {
+            playerImage.sprite = sittingRight;
+        }
+        else if(state == 1)
+        {
+            playerImage.sprite = sittingLeft;
+        }
+        else if (state == 2)
+        {
+            playerImage.sprite = jumpingRight;
+        }
+        else if (state == 3)
+        {
+            playerImage.sprite = jumpingLeft;
+        }
+        else if (state == 4)
+        {
+            //tadpole
+        }
     }
 }
