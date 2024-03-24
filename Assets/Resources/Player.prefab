@@ -217,7 +217,6 @@ MonoBehaviour:
   powerRatio: 0
   greenFloor: 1000
   playerSource: {fileID: 8459716277406099595}
-  bgMusicSource: {fileID: 907201817212774061}
   deathClip: {fileID: 8300000, guid: 32d87ea17147ac24cb683038062fa496, type: 3}
   waterEnterClip: {fileID: 8300000, guid: df6aa0d89377a4647a17a634b5caf53c, type: 3}
   waterExitClip: {fileID: 8300000, guid: 5fa2a6fe707a6c840a7f9457cdebd9c2, type: 3}
