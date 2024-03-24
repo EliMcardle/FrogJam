@@ -2245,11 +2245,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
       propertyPath: spawnChance.Array.data[0]
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
       propertyPath: spawnChance.Array.data[1]
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
       propertyPath: possibleSpawns.Array.data[1]

@@ -199,6 +199,8 @@ MonoBehaviour:
   value: 50
   maxRange: 10
   flySpeed: 7
+  bugImage: {fileID: 2076989706516577797}
+  view: {fileID: 7722563472929018901}
 --- !u!114 &7722563472929018901
 MonoBehaviour:
   m_ObjectHideFlags: 0
