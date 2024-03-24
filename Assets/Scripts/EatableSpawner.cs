@@ -53,9 +53,13 @@ public class EatableSpawner : MonoBehaviour
                     }
                 }
 
-                if(!bad)
+                if (!bad && num < 1950)
                 {
-                    GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    if (num < 1950)
+                    {
+                        GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                        num = eatable.GetComponent<PhotonView>().ViewID;
+                    }
                 }
 
                 break;
