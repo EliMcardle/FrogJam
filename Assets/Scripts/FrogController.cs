@@ -20,6 +20,7 @@ public class FrogController : MonoBehaviour
     [SerializeField] protected PhotonView view;
     [SerializeField] public Rigidbody rb;
     [SerializeField] protected TMPro.TMP_Text playerNameText;
+    [SerializeField] private Image jumpBar;
     private float xInput = 0;
     private Vector3 previousVelocity = Vector3.zero;
     public bool isGrounded = false;
@@ -57,6 +58,7 @@ public class FrogController : MonoBehaviour
                 jumpCharge = 0;
             }
 
+            jumpBar.fillAmount = jumpCharge;
             xInput = Input.GetAxisRaw("Horizontal");
         }
     }
