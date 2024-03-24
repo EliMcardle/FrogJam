@@ -8,11 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float powerDifference = 50f;
     [SerializeField] private PhotonView view;
-    [SerializeField] private TadpoleController tadpole;
-    [SerializeField] private FrogController frog;
+    [SerializeField] public TadpoleController tadpole;
+    [SerializeField] public FrogController frog;
     [SerializeField] private Rigidbody rb;
     [SerializeField] protected TMPro.TMP_Text playerPowerText;
-    [SerializeField] private Image playerImage;
+    [SerializeField] public Image playerImage;
+    [SerializeField] public Collider coll;
     private bool isFrog = true;
 
     public float power = 10f;
@@ -30,6 +31,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float powerRatio;
     [SerializeField] private int greenFloor;
 
+    public bool isDead = false;
+    public bool inWater = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isDead) //IF THE PLAYER IS DEAD, NOTHING BELOW THIS RUNS!!!
+        {
+            rb.velocity = Vector3.zero;
+            tadpole.enabled = false;
+            frog.enabled = false;
+            coll.enabled = false;
+            playerImage.enabled = false;
+
+            if(view.IsMine)
+            {
+                FrogPlayerManager.Instance.respawnButton.SetActive(true);
+            }
+
+            return;
+        }
+
         if(rb.velocity.x > 0)
         {
             facingRight = true;
@@ -117,6 +137,7 @@ public class PlayerController : MonoBehaviour
             frog.enabled = false;
             tadpole.enabled = true;
             rb.useGravity = false;
+            inWater = true;
         }
 
         if (other.tag == "Eatable" && view.IsMine)
@@ -131,6 +152,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Water" && !isFrog)
         {
+            inWater = false;
             isFrog = true;
             frog.enabled = true;
             tadpole.enabled = false;
@@ -146,6 +168,7 @@ public class PlayerController : MonoBehaviour
             if(otherPlayer.power < power - powerDifference)
             {
                 power += otherPlayer.power;
+                otherPlayer.isDead = true;
                 view.RPC("KillPlayer", RpcTarget.All, otherPlayer.gameObject.GetComponent<PhotonView>().ViewID);
                 view.RPC("SyncPower", RpcTarget.AllBuffered, power);
             }
@@ -195,10 +218,9 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer(int viewID)
     {
         PlayerController player = PhotonView.Find(viewID).gameObject.GetComponent<PlayerController>();
+        player.isDead = true;
         player.power = 10;
         player.view.RPC("SyncPower", RpcTarget.AllBuffered, player.power);
-        int randInt = Random.Range(0, FrogPlayerManager.Instance.spawnPoints.Count);
-        player.transform.position = FrogPlayerManager.Instance.spawnPoints[randInt].position;
     }
 
     [PunRPC]

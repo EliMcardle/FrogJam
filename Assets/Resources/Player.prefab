@@ -197,6 +197,7 @@ MonoBehaviour:
   rb: {fileID: 4282836763259169569}
   playerPowerText: {fileID: 2244572641482426363}
   playerImage: {fileID: 7969182353425827359}
+  coll: {fileID: 2300638972194038565}
   power: 10
   sittingRight: {fileID: 21300000, guid: 8149d350ec8b0964ca2d3c4b9453075d, type: 3}
   sittingLeft: {fileID: 21300000, guid: 70fb76edcdee7ba469f9be2b3a43aa42, type: 3}
@@ -205,8 +206,11 @@ MonoBehaviour:
   tadpoleUp: {fileID: 21300000, guid: 4553ef78f444acc41b05fad4a8843fa0, type: 3}
   tadpoleDown: {fileID: 21300000, guid: 05a33eff66d30d74987ccc8d93985853, type: 3}
   tadpoleMid: {fileID: 21300000, guid: 05a33eff66d30d74987ccc8d93985853, type: 3}
+  tadpoleAnim: 0
+  tadpoleAnimTime: 0
   powerRatio: 0
   greenFloor: 1000
+  isDead: 0
 --- !u!114 &10646457545640780
 MonoBehaviour:
   m_ObjectHideFlags: 0
