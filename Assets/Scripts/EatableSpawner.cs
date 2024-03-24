@@ -40,12 +40,27 @@ public class EatableSpawner : MonoBehaviour
         {
             if(randFloat <= chance)
             {
-                GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                Collider[] tempList = Physics.OverlapSphere(new Vector3(xPos, yPos, 0), 0.4f);
+                bool bad = false;
+
+                foreach (Collider coll in tempList)
+                {
+                    if(!coll.isTrigger)
+                    {
+                        bad = true;
+                        break;
+                    }
+                }
+
+                if(!bad)
+                {
+                    GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                }
+
                 break;
             }
             i++;
         }
-
 
         if(PhotonNetwork.IsMasterClient)
         {
