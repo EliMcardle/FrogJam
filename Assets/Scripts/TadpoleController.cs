@@ -7,7 +7,7 @@ public class TadpoleController : MonoBehaviour
 {
     [SerializeField] protected PhotonView view;
     [SerializeField] public Rigidbody rb;
-    [SerializeField] private float movespeed = 5f;
+    [SerializeField] public float movespeed = 5f;
     [SerializeField] private float maxSpeed = 20f;
     private float xInput = 0;
     private float yInput = 0;

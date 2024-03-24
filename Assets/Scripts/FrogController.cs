@@ -8,13 +8,13 @@ public class FrogController : MonoBehaviour
 {
     [SerializeField] private float jumpCharge = 0f;
     [Tooltip("Controls how fast the jump charges")]
-    [SerializeField] private float chargeRate = 0.1f;
+    [SerializeField] public float chargeRate = 0.1f;
     [Tooltip("Max height of player jump")]
     [SerializeField] private float maxHeight = 5f;
     [Tooltip("Horizontal jump force")]
     [SerializeField] private float horizJumpForce = 5f;
 
-    [SerializeField] private float movespeed = 3f;
+    [SerializeField] public float movespeed = 3f;
 
     public string nickname = "DEFAULT";
     [SerializeField] protected PhotonView view;

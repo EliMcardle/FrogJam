@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     
     public bool isDead = false;
     public bool inWater = false;
+    private float maxTadpoleMovespeed = 5f;
+    private float maxFrogMovespeed = 5f;
+    private float maxFrogJumprate = 5f;
 
     [SerializeField] private float audioRadius = 20f;
 
@@ -50,6 +53,9 @@ public class PlayerController : MonoBehaviour
         if(!view.IsMine)
         {
             GetComponent<AudioListener>().enabled = false;
+            maxTadpoleMovespeed = tadpole.movespeed;
+            maxFrogMovespeed = frog.movespeed;
+            maxFrogJumprate = frog.chargeRate;
         }
     }
 
