@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int greenFloor;
 
     [SerializeField] private AudioSource playerSource;
-    [SerializeField] private AudioSource bgMusicSource;
     [SerializeField] private AudioClip deathClip;
     [SerializeField] private AudioClip waterEnterClip;
     [SerializeField] private AudioClip waterExitClip;
@@ -51,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        bgMusicSource.Play();
+        
         if(!view.IsMine)
         {
             GetComponent<AudioListener>().enabled = false;
