@@ -11,6 +11,7 @@ public class FrogPlayerManager : MonoBehaviourPun
     public List<Transform> spawnPoints;
     public GameObject respawnButton;
     public static FrogPlayerManager Instance;
+    public int num = 0;
 
     private void Awake()
     {
