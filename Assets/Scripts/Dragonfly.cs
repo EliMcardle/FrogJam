@@ -17,6 +17,7 @@ public class Dragonfly : Eatable
     void Start()
     {
         spawnPoint = transform.position;
+        view.RPC("ChangeSprite", RpcTarget.All, flyingLeft);
     }
 
     // Update is called once per frame
