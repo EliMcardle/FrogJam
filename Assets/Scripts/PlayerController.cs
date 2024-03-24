@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite sittingLeft;
     [SerializeField] private Sprite jumpingRight;
     [SerializeField] private Sprite jumpingLeft;
+    [SerializeField] private Sprite tadpoleRight;
+    [SerializeField] private Sprite tadpoleLeft;
     [SerializeField] private Sprite tadpoleUp;
     [SerializeField] private Sprite tadpoleDown;
-    [SerializeField] private Sprite tadpoleMid;
-    [SerializeField] private bool tadpoleAnim;
-
-    [SerializeField] private float tadpoleAnimTime; // time to wait between each tadpole animation change in seconds
+    
+    [SerializeField] private float tadpoleAnimTime; // time to wait for one full cycle
     [SerializeField] private float powerRatio;
     [SerializeField] private int greenFloor;
 
@@ -92,41 +92,46 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (!frog.isGrounded && !facingRight)
                 {
-                    view.RPC("ChangeSprite", RpcTarget.AllBuffered, 3);
+                   view.RPC("ChangeSprite", RpcTarget.AllBuffered, 3);
                 }
             }
 
             else
             {
-                if (!tadpoleAnim)
+                if (Mathf.Abs(rb.velocity.x) >= Mathf.Abs(rb.velocity.y))
                 {
-                tadpoleAnim = true;
-                
-                //StartCoroutine(TadpoleSpriteCoroutine());
+                    // move horizontal
+                    if (facingRight)
+                    {
+                        //right
+                        view.RPC("ChangeSprite", RpcTarget.AllBuffered, 4);
+                    }
+
+                    else
+                    {
+                        //left
+                        view.RPC("ChangeSprite", RpcTarget.AllBuffered, 5);
+                    }
+                }
+
+                else
+                {
+                    // move vertical
+
+                    if (rb.velocity.y > 0)
+                    {
+                        // up
+                        view.RPC("ChangeSprite", RpcTarget.AllBuffered, 6);
+                    }
+
+                    else
+                    {
+                        //down
+                        view.RPC("ChangeSprite", RpcTarget.AllBuffered, 7);
+                    }
                 }
             }
         }
-    }
-
-    public IEnumerator TadpoleSpriteCoroutine(int state)
-    {
-        if (state == 4)
-        {
-            
-        }
-        else if (state == 5)
-        {
-            
-        }
-        
-        else if (state == 6)
-        {
-            
-        }
-
-        yield return new WaitForSeconds(tadpoleAnimTime);
-        
-        tadpoleAnim = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -244,7 +249,23 @@ public class PlayerController : MonoBehaviour
         }
         else if (state == 4)
         {
-            playerImage.sprite = tadpoleMid;
+            playerImage.sprite = tadpoleRight;
         }
+        
+        else if (state == 5)
+        {
+            playerImage.sprite = tadpoleLeft;
+        }
+        
+        else if (state == 6)
+        {
+            playerImage.sprite = tadpoleUp;
+        }
+        
+        else if (state == 7)
+        {
+            playerImage.sprite = tadpoleDown;
+        }
+        
     }
 }
