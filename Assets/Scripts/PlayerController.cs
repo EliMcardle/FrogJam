@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     public bool isDead = false;
     public bool inWater = false;
 
+    [SerializeField] private float audioRadius = 20f;
+
     private void Start()
     {
         if(!view.IsMine)
@@ -153,7 +155,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = waterEnterClip;
             playerSource.Play();
-            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, audioRadius));
             FrogPlayerManager.Instance.SendSound(nearbyPlayers, 3);
             isFrog = false;
             frog.enabled = false;
@@ -166,7 +168,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = eatFlyClip;
             playerSource.Play();
-            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, audioRadius));
             FrogPlayerManager.Instance.SendSound(nearbyPlayers, 1);
             power += other.GetComponent<Eatable>().value;
             view.RPC("DestroyObject", RpcTarget.MasterClient, other.gameObject.GetComponent<PhotonView>().ViewID);
@@ -181,7 +183,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = waterExitClip;
             playerSource.Play();
-            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, audioRadius));
             FrogPlayerManager.Instance.SendSound(nearbyPlayers, 4);
             inWater = false;
             isFrog = true;
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
                 
                 playerSource.clip = eatFrogClip;
                 playerSource.Play();
-                List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+                List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, audioRadius));
                 FrogPlayerManager.Instance.SendSound(nearbyPlayers, 2);
             }
         }

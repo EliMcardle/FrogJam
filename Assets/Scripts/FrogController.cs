@@ -100,7 +100,7 @@ public class FrogController : MonoBehaviour
         playerAudioSource.clip = frogJump;
         playerAudioSource.Play();
 
-        List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+        List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 20));
         FrogPlayerManager.Instance.SendSound(nearbyPlayers, 0);
 
         Invoke("StopJump", 0.1f);

@@ -225,6 +225,7 @@ MonoBehaviour:
   hasDiedOnce: 0
   isDead: 0
   inWater: 0
+  audioRadius: 20
 --- !u!114 &10646457545640780
 MonoBehaviour:
   m_ObjectHideFlags: 0
