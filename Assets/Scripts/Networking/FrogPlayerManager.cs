@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 public class FrogPlayerManager : MonoBehaviourPun
@@ -9,7 +10,6 @@ public class FrogPlayerManager : MonoBehaviourPun
     [SerializeField] private GameObject playerPrefab;
     public List<Transform> spawnPoints;
     public GameObject respawnButton;
-
     public static FrogPlayerManager Instance;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class FrogPlayerManager : MonoBehaviourPun
 
     public void RespawnButton()
     {
+        
         GameObject[] tempList = GameObject.FindGameObjectsWithTag("Player");
 
         PhotonView localPlayer = null;
@@ -46,7 +47,7 @@ public class FrogPlayerManager : MonoBehaviourPun
             Debug.LogError("A disaster has occured");
             return;
         }
-
+        
         photonView.RPC("RespawnPlayer", RpcTarget.All, localPlayer.ViewID);
     }
 
@@ -56,6 +57,7 @@ public class FrogPlayerManager : MonoBehaviourPun
         PlayerController player = PhotonView.Find(viewID).gameObject.GetComponent<PlayerController>();
 
         player.isDead = false;
+        player.hasDiedOnce = false;
         player.coll.enabled = true;
         player.playerImage.enabled = true;
         int randInt = Random.Range(0, spawnPoints.Count);

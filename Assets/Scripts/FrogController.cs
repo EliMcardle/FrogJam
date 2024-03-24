@@ -26,6 +26,9 @@ public class FrogController : MonoBehaviour
     public bool isGrounded = false;
     private bool isJumping = false;
 
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip frogJump;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +82,8 @@ public class FrogController : MonoBehaviour
 
     private void Jump()
     {
+        playerAudioSource.clip = frogJump;
+        playerAudioSource.Play();
         Invoke("StopJump", 0.1f);
         rb.velocity = Vector3.up * jumpCharge * maxHeight + Vector3.right * xInput * horizJumpForce;
     }

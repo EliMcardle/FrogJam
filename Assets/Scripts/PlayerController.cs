@@ -31,20 +31,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float powerRatio;
     [SerializeField] private int greenFloor;
 
+    [SerializeField] private AudioSource playerSource;
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField] private AudioClip waterEnterClip;
+    [SerializeField] private AudioClip waterExitClip;
+    [SerializeField] private AudioClip eatFlyClip;
+    [SerializeField] private AudioClip eatFrogClip;
+    public bool hasDiedOnce;
+    
     public bool isDead = false;
     public bool inWater = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
         if(isDead) //IF THE PLAYER IS DEAD, NOTHING BELOW THIS RUNS!!!
         {
+
+            if (!hasDiedOnce)
+            {
+                playerSource.clip = deathClip;
+                playerSource.Play();
+                hasDiedOnce = true;
+            }
+            
             rb.velocity = Vector3.zero;
             tadpole.enabled = false;
             frog.enabled = false;
@@ -138,6 +149,8 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Water" && isFrog)
         {
+            playerSource.clip = waterEnterClip;
+            playerSource.Play();
             isFrog = false;
             frog.enabled = false;
             tadpole.enabled = true;
@@ -147,6 +160,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.tag == "Eatable" && view.IsMine)
         {
+            playerSource.clip = eatFlyClip;
+            playerSource.Play();
             power += other.GetComponent<Eatable>().value;
             view.RPC("DestroyObject", RpcTarget.MasterClient, other.gameObject.GetComponent<PhotonView>().ViewID);
             view.RPC("SyncPower", RpcTarget.AllBuffered, power);
@@ -155,8 +170,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        
         if (other.tag == "Water" && !isFrog)
         {
+            playerSource.clip = waterExitClip;
+            playerSource.Play();
             inWater = false;
             isFrog = true;
             frog.enabled = true;
@@ -176,6 +194,9 @@ public class PlayerController : MonoBehaviour
                 otherPlayer.isDead = true;
                 view.RPC("KillPlayer", RpcTarget.All, otherPlayer.gameObject.GetComponent<PhotonView>().ViewID);
                 view.RPC("SyncPower", RpcTarget.AllBuffered, power);
+                
+                playerSource.clip = eatFrogClip;
+                playerSource.Play();
             }
         }
     }
