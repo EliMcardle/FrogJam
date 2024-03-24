@@ -12,6 +12,7 @@ public class EatableSpawner : MonoBehaviour
     [SerializeField] private float spawnrate = 3;
 
     private BoxCollider spawnCollider;
+    private int num = 0;
 
     // Start is called before the first frame update
     void Start()

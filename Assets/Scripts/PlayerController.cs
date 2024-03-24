@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
             {
                 power += otherPlayer.power;
                 otherPlayer.isDead = true;
-                view.RPC("KillPlayer", RpcTarget.All, otherPlayer.gameObject.GetComponent<PhotonView>().ViewID);
+                view.RPC("KillPlayer", RpcTarget.All, PhotonView.Find(otherPlayer.view.ViewID));
                 view.RPC("SyncPower", RpcTarget.AllBuffered, power);
                 
                 playerSource.clip = eatFrogClip;
@@ -269,9 +269,9 @@ public class PlayerController : MonoBehaviour
     }
 
     [PunRPC]
-    public void DestroyObject(int viewID)
+    public void DestroyObject(int id)
     {
-        PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
+        PhotonNetwork.Destroy(PhotonView.Find(id));
     }
 
     [PunRPC]
