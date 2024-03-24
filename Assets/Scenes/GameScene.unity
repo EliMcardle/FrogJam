@@ -2235,6 +2235,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
+      propertyPath: spawnChance.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
+      propertyPath: possibleSpawns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
+      propertyPath: spawnChance.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
+      propertyPath: spawnChance.Array.data[1]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 233175277188404446, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
+      propertyPath: possibleSpawns.Array.data[1]
+      value: 
+      objectReference: {fileID: 3921574143062287748, guid: 8fe75be8098acd849bdf358756a8548b, type: 3}
     - target: {fileID: 3109891670676030417, guid: 104d5399fed151242b684fe36b5658fb, type: 3}
       propertyPath: m_Name
       value: EatableTrigger

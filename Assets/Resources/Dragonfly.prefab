@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.023, y: -0.065}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -0.217}
+  m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1472367340741732838
 CanvasRenderer:
@@ -58,14 +58,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.7317972, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4b70323778272f42a9c57ba6efef2f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f3706843e345db48bd61da0465faf35, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,11 +87,11 @@ GameObject:
   - component: {fileID: 5642503119981447033}
   - component: {fileID: 65412268384591337}
   - component: {fileID: 3666050229940652200}
-  - component: {fileID: 8597744130398348013}
+  - component: {fileID: 2464369323641577476}
   - component: {fileID: 7722563472929018901}
   - component: {fileID: 8245558541873287140}
   m_Layer: 0
-  m_Name: GreaterAlgae
+  m_Name: Dragonfly
   m_TagString: Eatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8597744130398348013
+--- !u!114 &2464369323641577476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,10 +193,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3921574143062287748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2edc862e90d505f4b8aafba5a4452fea, type: 3}
+  m_Script: {fileID: 11500000, guid: 7728754a15a614f419101be6e0f097fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 5
+  value: 50
+  maxRange: 10
+  flySpeed: 7
+  bugImage: {fileID: 2076989706516577797}
+  view: {fileID: 7722563472929018901}
 --- !u!114 &7722563472929018901
 MonoBehaviour:
   m_ObjectHideFlags: 0
