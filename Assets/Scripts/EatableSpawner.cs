@@ -41,6 +41,7 @@ public class EatableSpawner : MonoBehaviour
             if(randFloat <= chance)
             {
                 GameObject eatable = PhotonNetwork.Instantiate(possibleSpawns[i].name, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                break;
             }
             i++;
         }
