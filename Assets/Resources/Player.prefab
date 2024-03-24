@@ -202,6 +202,9 @@ MonoBehaviour:
   sittingLeft: {fileID: 21300000, guid: 70fb76edcdee7ba469f9be2b3a43aa42, type: 3}
   jumpingRight: {fileID: 21300000, guid: 336abd98c2c4a39439b7b396daeb33e0, type: 3}
   jumpingLeft: {fileID: 21300000, guid: 1c23aa5991e7ceb4da8df0bde7d6928b, type: 3}
+  tadpoleUp: {fileID: 21300000, guid: 4553ef78f444acc41b05fad4a8843fa0, type: 3}
+  tadpoleDown: {fileID: 21300000, guid: 05a33eff66d30d74987ccc8d93985853, type: 3}
+  tadpoleMid: {fileID: 21300000, guid: 05a33eff66d30d74987ccc8d93985853, type: 3}
   powerRatio: 0
   greenFloor: 1000
 --- !u!114 &10646457545640780
