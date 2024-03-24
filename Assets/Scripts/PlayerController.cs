@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float powerDifference = 50f;
-    [SerializeField] private PhotonView view;
+    [SerializeField] public PhotonView view;
     [SerializeField] public TadpoleController tadpole;
     [SerializeField] public FrogController frog;
     [SerializeField] private Rigidbody rb;
@@ -37,11 +37,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip waterExitClip;
     [SerializeField] private AudioClip eatFlyClip;
     [SerializeField] private AudioClip eatFrogClip;
+    [SerializeField] private AudioClip frogJump;
     public bool hasDiedOnce;
     
     public bool isDead = false;
     public bool inWater = false;
-    
+
+    private void Start()
+    {
+        if(!view.IsMine)
+        {
+            GetComponent<AudioListener>().enabled = false;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -77,12 +85,6 @@ public class PlayerController : MonoBehaviour
         else if(rb.velocity.x < 0)
         {
             facingRight = false;
-        }
-
-        if(view.IsMine && Input.GetKeyDown(KeyCode.P))
-        {
-            power += 50;
-            view.RPC("SyncPower", RpcTarget.AllBuffered, power);
         }
 
         if(view.IsMine)
@@ -151,6 +153,8 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = waterEnterClip;
             playerSource.Play();
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            FrogPlayerManager.Instance.SendSound(nearbyPlayers, 3);
             isFrog = false;
             frog.enabled = false;
             tadpole.enabled = true;
@@ -162,6 +166,8 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = eatFlyClip;
             playerSource.Play();
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            FrogPlayerManager.Instance.SendSound(nearbyPlayers, 1);
             power += other.GetComponent<Eatable>().value;
             view.RPC("DestroyObject", RpcTarget.MasterClient, other.gameObject.GetComponent<PhotonView>().ViewID);
             view.RPC("SyncPower", RpcTarget.AllBuffered, power);
@@ -175,6 +181,8 @@ public class PlayerController : MonoBehaviour
         {
             playerSource.clip = waterExitClip;
             playerSource.Play();
+            List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+            FrogPlayerManager.Instance.SendSound(nearbyPlayers, 4);
             inWater = false;
             isFrog = true;
             frog.enabled = true;
@@ -197,8 +205,25 @@ public class PlayerController : MonoBehaviour
                 
                 playerSource.clip = eatFrogClip;
                 playerSource.Play();
+                List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+                FrogPlayerManager.Instance.SendSound(nearbyPlayers, 2);
             }
         }
+    }
+
+    private List<PlayerController> Contains(Collider[] colls)
+    {
+        List<PlayerController> templist = new List<PlayerController>();
+
+        foreach (Collider coll in colls)
+        {
+            if (coll.gameObject.GetComponent<PlayerController>())
+            {
+                templist.Add(coll.gameObject.GetComponent<PlayerController>());
+            }
+        }
+
+        return templist;
     }
 
     [PunRPC]
@@ -288,5 +313,38 @@ public class PlayerController : MonoBehaviour
             playerImage.sprite = tadpoleDown;
         }
         
+    }
+
+    [PunRPC]
+    public void ReceiveSound(int soundIndex)
+    {
+        if(view.IsMine)
+        {
+            if(soundIndex == 0)
+            {
+                playerSource.clip = frogJump;
+                playerSource.Play();
+            }
+            else if(soundIndex == 1)
+            {
+                playerSource.clip = eatFlyClip;
+                playerSource.Play();
+            }
+            else if (soundIndex == 2)
+            {
+                playerSource.clip = eatFrogClip;
+                playerSource.Play();
+            }
+            else if (soundIndex == 3)
+            {
+                playerSource.clip = waterEnterClip;
+                playerSource.Play();
+            }
+            else if (soundIndex == 4)
+            {
+                playerSource.clip = waterExitClip;
+                playerSource.Play();
+            }
+        }
     }
 }

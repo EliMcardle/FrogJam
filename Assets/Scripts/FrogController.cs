@@ -80,10 +80,29 @@ public class FrogController : MonoBehaviour
 
     }
 
+    private List<PlayerController> Contains(Collider[] colls)
+    {
+        List<PlayerController> templist = new List<PlayerController>();
+
+        foreach(Collider coll in colls)
+        {
+            if(coll.gameObject.GetComponent<PlayerController>())
+            {
+                templist.Add(coll.gameObject.GetComponent<PlayerController>());
+            }
+        }
+
+        return templist;
+    }
+
     private void Jump()
     {
         playerAudioSource.clip = frogJump;
         playerAudioSource.Play();
+
+        List<PlayerController> nearbyPlayers = Contains(Physics.OverlapSphere(transform.position, 10));
+        FrogPlayerManager.Instance.SendSound(nearbyPlayers, 0);
+
         Invoke("StopJump", 0.1f);
         rb.velocity = Vector3.up * jumpCharge * maxHeight + Vector3.right * xInput * horizJumpForce;
     }

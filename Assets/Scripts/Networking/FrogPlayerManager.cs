@@ -26,6 +26,14 @@ public class FrogPlayerManager : MonoBehaviourPun
         }
     }
 
+    public void SendSound(List<PlayerController> players, int soundIndex)
+    {
+        foreach(PlayerController player in players)
+        {
+            player.view.RPC("ReceiveSound", RpcTarget.All, soundIndex);
+        }
+    }
+
     public void RespawnButton()
     {
         
