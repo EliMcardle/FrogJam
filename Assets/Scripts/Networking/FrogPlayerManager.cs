@@ -88,7 +88,7 @@ public class FrogPlayerManager : MonoBehaviourPun
     {
         int randInt = Random.Range(0, spawnPoints.Count);
         GameObject frog = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoints[randInt].position, Quaternion.identity);
-        frog.GetComponent<FrogController>().nickname = PhotonNetwork.LocalPlayer.NickName;
+        frog.GetComponent<PlayerController>().nickname = PhotonNetwork.LocalPlayer.NickName;
         Camera.main.transform.SetParent(frog.transform);
         Camera.main.transform.localPosition = new Vector3(0, 0, -10);
     }

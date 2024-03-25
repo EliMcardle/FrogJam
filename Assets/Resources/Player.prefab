@@ -216,6 +216,8 @@ MonoBehaviour:
   tadpoleAnimTime: 0
   powerRatio: 0
   greenFloor: 1000
+  nickname: DEFAULT
+  playerNameText: {fileID: 828834805338745064}
   playerSource: {fileID: 8459716277406099595}
   deathClip: {fileID: 8300000, guid: 32d87ea17147ac24cb683038062fa496, type: 3}
   waterEnterClip: {fileID: 8300000, guid: df6aa0d89377a4647a17a634b5caf53c, type: 3}

@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float powerRatio;
     [SerializeField] private int greenFloor;
 
+    public string nickname = "DEFAULT";
+    [SerializeField] protected TMPro.TMP_Text playerNameText;
+
     [SerializeField] private AudioSource playerSource;
     [SerializeField] private AudioClip deathClip;
     [SerializeField] private AudioClip waterEnterClip;
@@ -50,8 +53,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
-        if(!view.IsMine)
+        playerNameText.text = view.Controller.NickName;
+        if (!view.IsMine)
         {
             GetComponent<AudioListener>().enabled = false;
             maxTadpoleMovespeed = tadpole.movespeed;
@@ -209,7 +212,7 @@ public class PlayerController : MonoBehaviour
             {
                 power += otherPlayer.power;
                 otherPlayer.isDead = true;
-                view.RPC("KillPlayer", RpcTarget.All, PhotonView.Find(otherPlayer.view.ViewID));
+                view.RPC("KillPlayer", RpcTarget.All, otherPlayer.view.ViewID);
                 view.RPC("SyncPower", RpcTarget.AllBuffered, power);
                 
                 playerSource.clip = eatFrogClip;

@@ -29,12 +29,6 @@ public class FrogController : MonoBehaviour
     [SerializeField] private AudioSource playerAudioSource;
     [SerializeField] private AudioClip frogJump;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerNameText.text = view.Controller.NickName;
-    }
-
     // Update is called once per frame
     void Update()
     {
